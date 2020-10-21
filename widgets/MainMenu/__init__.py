@@ -19,8 +19,10 @@ class MainMenuWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-
         self.openWidgets = []
 
         for button in self.widgetButtons.findChildren(QtWidgets.QPushButton):
-            button.clicked.connect(self.load_widget)
+            button.clicked.connect(self.load_widget) # Simulates pushing every widget button
+
+
+            # for any button clicked, try to load the widget
