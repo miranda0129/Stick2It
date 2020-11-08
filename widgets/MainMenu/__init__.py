@@ -8,6 +8,8 @@ class MainMenuWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def load_widget(self):
         button = self.sender()
         name = button.objectName()
+        print(button.objectName())
+        print(gv.widget_dict[name]())
         try:
             app = gv.widget_dict[name]()
             if app: app.show()

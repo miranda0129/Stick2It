@@ -6,8 +6,8 @@ from widgets import global_vars as gv
 class Window(QWidget):
     def __init__(self):
         QMainWindow.__init__(self)
-        self.setWindowTitle("test")
-        self.name = "widget1"
+        self.setWindowTitle("Test Widget")
+        #self.name = "widget1"
 
     def closeEvent(self, event):
         print("closing window...")
