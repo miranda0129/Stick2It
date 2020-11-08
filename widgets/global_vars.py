@@ -1,10 +1,11 @@
 from widgets import TestWidget
+from widgets import ToDoList
 
 """
 a dictionary of Stick2It widget objectNames and their associated QT widget class
 """
 widget_dict = {
-    "widget1": TestWidget.Window
+    "widget1": ToDoList.Window
 }
 
 """
