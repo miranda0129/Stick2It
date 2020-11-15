@@ -6,12 +6,12 @@ from widgets import global_vars as gv
 
 
 qtcreator_file  = "widgets/Calendar/Calendar.ui" # Enter file here.
-Ui_ToDoListWindow, QtBaseClass = uic.loadUiType(qtcreator_file)
+Ui_CalendarWindow, QtBaseClass = uic.loadUiType(qtcreator_file)
 
-class Window(QtWidgets.QMainWindow, Ui_ToDoListWindow):
+class Window(QtWidgets.QMainWindow, Ui_CalendarWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
-        Ui_ToDoListWindow.__init__(self)
+        Ui_CalendarWindow.__init__(self)
         self.setupUi(self)
         self.name = "widget2"
 
