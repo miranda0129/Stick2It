@@ -26,5 +26,4 @@ class MainMenuWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for button in self.widgetButtons.findChildren(QtWidgets.QPushButton):
             button.clicked.connect(self.load_widget) # Simulates pushing every widget button
 
-
             # for any button clicked, try to load the widget
