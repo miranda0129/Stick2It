@@ -1,5 +1,6 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from widgets.MainMenu import MainMenuWindow
+
 
 """
 
@@ -13,6 +14,11 @@ each widget has:
 """
 
 def run():
+    # Handle high resolution displays:
+    if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+        QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+    if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+        QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
     app = QtWidgets.QApplication([])
     window = MainMenuWindow()
     window.show()

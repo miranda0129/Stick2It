@@ -1,7 +1,6 @@
 from PyQt5.QtCore import QSize, QObject, pyqtSignal, QThread
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from widgets import global_vars as gv
-from widgets.Timer.timer import Timer 
 
 qtcreator_file = "widgets/Timer/timer.ui"  # Enter file here.
 Ui_TimerWindow, QtBaseClass = uic.loadUiType(qtcreator_file)
@@ -47,7 +46,6 @@ class Timer(QThread):
 
 
 class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
-    stop_signal = pyqtSignal()      # dont put this in __init__, it has to be outside
     def __init__(self):
         # name widget for window management
         self.name = "widget4"
@@ -64,8 +62,6 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         # Stop Button action:
         self.stopButton.clicked.connect(self.stop_timer)
 
-    # code is bad and I should feel bad, multiple thread spawns
-    # fix this when time persists
     def start_timer(self):
         self.statusLabel.hide()
         self.timer = Timer(window=self)
