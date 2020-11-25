@@ -52,6 +52,7 @@ class TimerThread(QThread):
 """
 Window acts as the GUI and the controller. It will control starting and stopping a specific time, as well as
 managing different timers stored as a list of timer objects
+
 """
 class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
     def __init__(self):
