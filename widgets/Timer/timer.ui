@@ -126,7 +126,7 @@
        <height>101</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="timerHBox"/>
+     <layout class="QHBoxLayout" name="timerLayout"/>
     </widget>
    </widget>
    <widget class="QPushButton" name="stopButton">
@@ -195,7 +195,7 @@
       <height>61</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="times"/>
+    <layout class="QHBoxLayout" name="timesLayout"/>
    </widget>
    <zorder>timerProg</zorder>
    <zorder>timerEdit</zorder>

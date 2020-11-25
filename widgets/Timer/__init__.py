@@ -54,6 +54,7 @@ class TimerThread(QThread):
 Window acts as the GUI and the controller. It will control starting and stopping a specific time, as well as
 managing different timers stored as a list of timer objects
 
+#TODO: more than one time for a timer (ex: 25/5 pomodoro, 20/0.2 eye strain, etc.)
 """
 class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
     def __init__(self):
@@ -95,7 +96,7 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         btn = QtWidgets.QPushButton(timer.name)
         btn.clicked.connect(self.init_timer)
         btn.setCheckable(True)
-        self.timerHBox.addWidget(btn)
+        self.timerLayout.addWidget(btn)
         self.btnGroup.addButton(btn, len(self.timers) - 1)
         if is_checked:
             btn.setChecked(True)
@@ -122,6 +123,9 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
             print(new_timer)
             if self.index != -1:
                 old_timer.times = [self.timerEdit.text()]
+                for i in range(self.timesLayout.count()):
+                    self.timesLayout.itemAt(i).widget().deleteLater()
+
 
             print("--------")
             print(old_timer)
@@ -129,6 +133,7 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
             # move to new_index
             self.timerEdit.setText(new_timer.times[0])
             for i in range(len(new_timer.times)):
+                self.timesLayout.addWidget(QtWidgets.QLineEdit(new_timer.times[i]))
                 print(f"time at index {i}: {new_timer.times[i]}")
             
             self.index = new_index
