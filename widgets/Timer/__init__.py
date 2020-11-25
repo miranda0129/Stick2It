@@ -48,8 +48,6 @@ class TimerThread(QThread):
     def stop(self):
         print("stopping timer...")
         self.continue_run = False
-    
-
 
 """
 Window acts as the GUI and the controller. It will control starting and stopping a specific time, as well as
@@ -76,19 +74,23 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         load_timers: if a time file exists, then load it up at startup. If not, then be a blank startup. 
     """
     def load_timers(self):
+        self.btnGroup = QtWidgets.QButtonGroup()
+        self.btnGroup.setExclusive(True)
         default_file = 'widgets/Timer/data/timer1.json'
         if os.path.isfile(default_file):
             print("file exists. Loading file. ")
         else:
             print("file does not exist. Creating default timer file. ")
-            btn = QtWidgets.QPushButton("Default Timer")
-            self.timerHBox.addWidget(btn)
+            self.add_timer(is_checked=True)
     
-    def add_timer(self):
+    def add_timer(self, is_checked=False):
         btn = QtWidgets.QPushButton("Default Timer")
+        btn.setCheckable(True)
+        if is_checked:
+            btn.setChecked(True)
         self.timerHBox.addWidget(btn)
+        self.btnGroup.addButton(btn)
         
-
     def start_timer(self):
         self.statusLabel.hide()
         self.timer = TimerThread(window=self)

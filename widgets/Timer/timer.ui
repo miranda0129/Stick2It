@@ -85,7 +85,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>320</y>
+      <y>370</y>
       <width>531</width>
       <height>131</height>
      </rect>
@@ -133,7 +133,7 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>250</y>
+      <y>300</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -149,7 +149,7 @@
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>250</y>
+      <y>300</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -180,12 +180,24 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>220</y>
+      <width>531</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="times"/>
+   </widget>
    <zorder>timerProg</zorder>
    <zorder>timerEdit</zorder>
    <zorder>timerManage</zorder>
    <zorder>stopButton</zorder>
    <zorder>startButton</zorder>
    <zorder>statusLabel</zorder>
+   <zorder>horizontalLayoutWidget_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
