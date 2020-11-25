@@ -8,14 +8,13 @@ class MainMenuWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def load_widget(self):
         button = self.sender()
         name = button.objectName()
-        print(button.objectName())
-        print(gv.widget_dict[name]())
-        try:
-            app = gv.widget_dict[name]()
-            if app: app.show()
-            gv.open_widgets[name] = app
-        except:
-            print("no widget implemented yet...")
+        app = gv.widget_dict[name]()
+        print(f"loading app: {app}")
+        if app: app.show()
+        gv.open_widgets[name] = app
+        # print("Error in Widget. Check error message. ")
+        # print(e)
+
 
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)

@@ -1,7 +1,6 @@
 from PyQt5 import QtWidgets, QtCore
 from widgets.MainMenu import MainMenuWindow
 
-
 """
 
 Stick2it widgets: a lot of small productivity apps
@@ -19,6 +18,7 @@ def run():
         QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
     if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
         QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+
     app = QtWidgets.QApplication([])
     window = MainMenuWindow()
     window.show()
