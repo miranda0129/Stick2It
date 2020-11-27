@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="stick2itLogo">
+    <file>To-Do List.png</file>
+  </qresource>
+</RCC>

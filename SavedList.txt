@@ -1,6 +1,3 @@
-hello there
 Help Joey move his couch
 Clean bathroom
 Pick up coconut oil
-we can now save files as we open and close the system
-should now be in the same order
