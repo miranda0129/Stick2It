@@ -54,7 +54,7 @@ class Window(QtWidgets.QMainWindow, Ui_CalendarWindow):
                 else:
                     distance -= 365
         if(a > 0):
-            for i in range(self.currentYear, self.Year):
+            for i in range(self.currentYear, year):
                 if(i%4 == 0):
                     distance += 366
                 else:
