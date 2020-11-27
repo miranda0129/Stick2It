@@ -23,7 +23,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(134, 132, 135);</string>
+   <string notr="true">background-color: #8db596;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_5">
@@ -132,7 +132,7 @@ color: rgb(3, 3, 3)</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(253, 250, 255);</string>
+background-color: #bedbbb;</string>
                </property>
               </widget>
              </item>
@@ -171,7 +171,7 @@ background-color: rgb(253, 250, 255);</string>
                <property name="styleSheet">
                 <string notr="true">font: italic 20pt &quot;Courier New&quot;;
 color: rgb(3, 3, 3);
-background-color: rgb(253, 250, 255);</string>
+background-color: #92817a;</string>
                </property>
                <property name="text">
                 <string>Add Item</string>
@@ -207,7 +207,9 @@ background-color: rgb(253, 250, 255);</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(253, 250, 255);</string>
+background-color: #bedbbb;
+border-style: solid;
+border-color: #707070;</string>
                </property>
               </widget>
              </item>
@@ -251,7 +253,7 @@ color: rgb(3, 3, 3)</string>
                <property name="styleSheet">
                 <string notr="true">font: italic 20pt &quot;Courier New&quot;;
 color: rgb(3, 3, 3);
-background-color: rgb(253, 250, 255);</string>
+background-color: #92817a;</string>
                </property>
                <property name="text">
                 <string>Delete Item</string>

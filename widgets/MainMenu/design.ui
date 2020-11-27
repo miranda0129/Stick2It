@@ -14,7 +14,8 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(47, 47, 48);</string>
+   <string notr="true">background-color: #8db596;
+</string>
   </property>
   <property name="animated">
    <bool>true</bool>
@@ -24,7 +25,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(134, 132, 135);</string>
+    <string notr="true"/>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
@@ -66,7 +67,7 @@
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);
+             <string notr="true">background-color: #bedbbb;
 color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
@@ -89,7 +90,7 @@ color: rgb(0, 0, 0);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);
+             <string notr="true">background-color: #bedbbb;
 color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
@@ -112,7 +113,7 @@ color: rgb(0, 0, 0);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);
+             <string notr="true">background-color: #bedbbb;
 color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
@@ -135,7 +136,7 @@ color: rgb(0, 0, 0);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);
+             <string notr="true">background-color:#bedbbb;
 color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
