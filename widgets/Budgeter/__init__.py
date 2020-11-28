@@ -64,7 +64,6 @@ class Window(QtWidgets.QMainWindow, Ui_BudgetWindow):
 
         temp_costs = self.fixedCost.text().replace(' ', '')
         temp_income = self.expectedIncome.text().replace(' ', '')
-        temp_savings = self.savings.text().replace(' ', '')
 
         if len(temp_costs) > 0:
             costs = temp_costs.split(",")
@@ -78,17 +77,6 @@ class Window(QtWidgets.QMainWindow, Ui_BudgetWindow):
             total_income = sum([float(income.split(":")[-1]) for income in incomes])
         else:
             total_income = 0
-
-        if len(temp_savings) > 0:
-            savings = temp_savings
-        else:
-            savings = "0"
-
-        if savings[-1] == '%':  # case where saving is a percent of income
-            percentage = float(savings.replace('%', '')) / 100
-            saved = percentage * total_income
-        else:
-            saved = float(savings)
 
         summary_str = "Total Income: ${:.2f}, Total Cost: ${:.2f}".format(total_income, total_cost)
         self.summary.setText(summary_str)
