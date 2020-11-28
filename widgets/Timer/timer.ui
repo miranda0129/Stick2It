@@ -81,11 +81,11 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QGroupBox" name="TimerManager">
+   <widget class="QGroupBox" name="timerManage">
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>320</y>
+      <y>370</y>
       <width>531</width>
       <height>131</height>
      </rect>
@@ -96,19 +96,6 @@
     <property name="title">
      <string>Timers</string>
     </property>
-    <widget class="QListWidget" name="TimerList">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>411</width>
-       <height>101</height>
-      </rect>
-     </property>
-     <property name="flow">
-      <enum>QListView::LeftToRight</enum>
-     </property>
-    </widget>
     <widget class="QPushButton" name="addTimer">
      <property name="geometry">
       <rect>
@@ -130,12 +117,23 @@
       <string>+</string>
      </property>
     </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>401</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="timerLayout"/>
+    </widget>
    </widget>
    <widget class="QPushButton" name="stopButton">
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>250</y>
+      <y>300</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -151,7 +149,7 @@
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>250</y>
+      <y>300</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -161,6 +159,12 @@
     </property>
     <property name="text">
      <string>Start</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="statusLabel">
@@ -182,12 +186,24 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>220</y>
+      <width>531</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="timesLayout"/>
+   </widget>
    <zorder>timerProg</zorder>
    <zorder>timerEdit</zorder>
-   <zorder>TimerManager</zorder>
+   <zorder>timerManage</zorder>
    <zorder>stopButton</zorder>
    <zorder>startButton</zorder>
    <zorder>statusLabel</zorder>
+   <zorder>horizontalLayoutWidget_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
