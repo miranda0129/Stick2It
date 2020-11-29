@@ -8,9 +8,14 @@ timer object has:
 """
 
 class Timer:
-    def __init__(self, times=["05:00"], name="Default Timer"):
+    def __init__(self, times=None, name=None):
+        if times is None:
+            times=["25:00", "05:00"]
+        if name is None:
+            name="Default Timer"
         self.times = times        # list of time strings of the form NN:NN, that go in succession
         self.name = name        # name assigned to the timer
+        self.index = 0          # where the timer is in the times array
     
     """
         for JSON storage, store the time and the name as strings
@@ -22,4 +27,7 @@ class Timer:
         }
     
     def __str__(self):
-        return str(self.to_dict()) + "\n" + super().__str__()
+        return str(self.to_dict()) 
+
+    def __repr__(self):
+        return str(self.to_dict())
