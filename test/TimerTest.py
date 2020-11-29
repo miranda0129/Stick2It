@@ -40,7 +40,9 @@ class TimerTest(unittest.TestCase):
     # start and stop them at different intervals
     def test_case3(self):
         try:
-            QTest.mouseClick(gv.window.toggleButton, Qt.LeftButton)
+            for i in range(9):
+                QTest.mouseClick(gv.window.toggleButton, Qt.LeftButton)
+                QTest.qWait(100)
             spy = QSignalSpy(gv.window.notify)
             t = spy.wait(timeout=10000)
             print(f"Spy signal: {t}")
@@ -55,7 +57,6 @@ class TimerTest(unittest.TestCase):
     # save it and exit
     def test_case6(self):
         gv.window.close()
-        window.close()
 
 if __name__ == "__main__":
     unittest.main()
