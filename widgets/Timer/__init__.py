@@ -35,7 +35,7 @@ class TimerThread(QThread):
         if t == 0:
             print("countdown done!")
             self.window.timerEdit.setText("00:00")
-            self.window.notify("done!")
+            self.window.notify.emit("done!")
 
     """
     strToSec: converts a string of the form NN:NN to an integer representing number of seconds
@@ -57,6 +57,7 @@ managing different timers stored as a list of timer objects
 #TODO: more than one time for a timer (ex: 25/5 pomodoro, 20/0.2 eye strain, etc.)
 """
 class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
+    notify = pyqtSignal(str)
     def __init__(self):
         # load and set up ui file
         QtWidgets.QMainWindow.__init__(self)
@@ -68,6 +69,8 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         self.name = "widget4"
         self.load_timers()
 
+        # notification signal toggler
+        self.notify.connect(self.notify_func)
         # TODO: start/stop toggler instead of separate buttons
         self.timerEdit.returnPressed.connect(self.start_timer)  # enter key triggers start
         self.startButton.clicked.connect(self.start_timer)
@@ -163,6 +166,6 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         del gv.open_widgets[self.name]
         print(gv.open_widgets)
         
-    def notify(self, text):
+    def notify_func(self, text):
         print(f"sending {text} to client...")
         self.statusLabel.show()

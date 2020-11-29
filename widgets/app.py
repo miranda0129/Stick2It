@@ -22,4 +22,4 @@ def run():
     app = QtWidgets.QApplication([])
     window = MainMenuWindow()
     window.show()
-    app.exec_()
+    return app, window
