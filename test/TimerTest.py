@@ -13,12 +13,6 @@ from PyQt5.QtTest import QTest, QSignalSpy
 from PyQt5.QtCore import Qt, QThread
 
 new_app, window = app.run()
-class TestTimerThread(QThread):
-    def run(self):
-        while True:
-            print("waiting")
-            QThread.sleep(1)
-
 
 class TimerTest(unittest.TestCase):
     # open widget
