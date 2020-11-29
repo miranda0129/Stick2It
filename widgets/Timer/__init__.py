@@ -76,13 +76,15 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         self.startButton.clicked.connect(self.start_timer)
         self.stopButton.clicked.connect(self.stop_timer)
         self.addTimer.clicked.connect(self.add_timer)
-
+    
     """
         load_timers: if a time file exists, then load it up at startup. If not, then be a blank startup. 
     """
     def load_timers(self):
-        self.timers = []    # an array of Timer objects, with an associated button
-        self.index = -1      # which Timer of the array is loaded into the widget
+        self.timers = []            # an array of Timer objects, with an associated button
+        self.index = -1             # which Timer of the array is loaded into the widget
+        self.timer_t = None         # timer thread, which begins a countdown
+        self.is_timer_t = False     # too lazy to figure out how PyQT can check for deleted C++ objects
 
         self.btnGroup = QtWidgets.QButtonGroup()
         self.btnGroup.setExclusive(True)
@@ -140,6 +142,10 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
                 print(f"time at index {i}: {new_timer.times[i]}")
             
             self.index = new_index
+    
+    # used in connections
+    def toggle_timer_t(self):
+        self.is_timer_t = not self.is_timer_t
 
     """
         boolean to toggle starting and stopping
@@ -150,14 +156,18 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         pass
 
     def start_timer(self):
-        self.statusLabel.hide()
-        self.timer = TimerThread(window=self)
-        self.timer.finished.connect(self.timer.quit)  # connect the workers finished signal to stop thread
-        self.timer.finished.connect(self.timer.deleteLater)  # connect the workers finished signal to stop thread
-        self.timer.start()
+        if not self.is_timer_t:
+            self.statusLabel.hide()
+            self.timer_t = TimerThread(window=self)
+            self.timer_t.finished.connect(self.timer_t.quit)  # connect the workers finished signal to stop thread
+            self.timer_t.finished.connect(self.timer_t.deleteLater)  # connect the workers finished signal to stop thread
+            self.timer_t.finished.connect(self.toggle_timer_t)
+            self.timer_t.start()
+            self.toggle_timer_t()
     
     def stop_timer(self):
-        self.timer.stop_signal.emit()
+        if self.is_timer_t:
+            self.timer_t.stop_signal.emit()
 
     # close event will update global var tracking open widgets
     def closeEvent(self, event):
