@@ -53,6 +53,9 @@ class TimerTest(unittest.TestCase):
 
     # create a new file
     # save it and exit
+    def test_case6(self):
+        gv.window.close()
+        window.close()
 
 if __name__ == "__main__":
     unittest.main()
