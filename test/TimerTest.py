@@ -17,26 +17,35 @@ new_app, window = app.run()
 class TimerTest(unittest.TestCase):
     # open widget
     def test_case1(self):
-        print("test setup")
-        QTest.mouseClick(window.widget4, Qt.LeftButton)
-        print(f"current window: {gv.window}")
-        QTest.mouseClick(gv.window, Qt.LeftButton)
+        try:
+            print("test setup")
+            QTest.mouseClick(window.widget4, Qt.LeftButton)
+            print(f"current window: {gv.window}")
+            QTest.mouseClick(gv.window, Qt.LeftButton)
+        except Exception as e:
+            self.fail(e)
 
     # create 4 or 5 sample timers
     def test_case2(self):
-        tl = gv.window.timesLayout
-        for i in range(tl.count()):
-            t = tl.itemAt(i).widget()
-            t.setText("00:01")
-        print("test timers")
+        try:
+            tl = gv.window.timesLayout
+            for i in range(tl.count()):
+                t = tl.itemAt(i).widget()
+                t.setText("00:01")
+            print("test timers")
+        except Exception as e:
+            self.fail(e)
 
 
     # start and stop them at different intervals
     def test_case3(self):
-        print("test start stop")
-        QTest.mouseClick(gv.window.toggleButton, Qt.LeftButton)
-        spy = QSignalSpy(gv.window.notify)
-        print(f"Spy signal: {spy.wait(timeout=10000)}")
+        try:
+            QTest.mouseClick(gv.window.toggleButton, Qt.LeftButton)
+            spy = QSignalSpy(gv.window.notify)
+            t = spy.wait(timeout=10000)
+            print(f"Spy signal: {t}")
+        except Exception as e:
+            self.fail(e)
 
     # look for done popup
     def test_case4(self):
