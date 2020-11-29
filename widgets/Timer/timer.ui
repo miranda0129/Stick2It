@@ -89,7 +89,7 @@
      <rect>
       <x>40</x>
       <y>380</y>
-      <width>531</width>
+      <width>541</width>
       <height>121</height>
      </rect>
     </property>
@@ -104,8 +104,8 @@
       <rect>
        <x>440</x>
        <y>20</y>
-       <width>75</width>
-       <height>71</height>
+       <width>71</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -131,6 +131,28 @@ color: white;</string>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="timerLayout"/>
+    </widget>
+    <widget class="QPushButton" name="delTimer">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>70</y>
+       <width>71</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>30</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #92817a;
+color: white;</string>
+     </property>
+     <property name="text">
+      <string>-</string>
+     </property>
     </widget>
    </widget>
    <widget class="QPushButton" name="toggleButton">
@@ -189,9 +211,9 @@ color: white;</string>
     <property name="geometry">
      <rect>
       <x>540</x>
-      <y>230</y>
+      <y>220</y>
       <width>41</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -201,6 +223,22 @@ color: white;</string>
      <string>+</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="addTime_2">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>260</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #BEDBBB</string>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+   </widget>
    <zorder>timerProg</zorder>
    <zorder>timerEdit</zorder>
    <zorder>timerManage</zorder>
@@ -208,6 +246,7 @@ color: white;</string>
    <zorder>statusLabel</zorder>
    <zorder>horizontalLayoutWidget_2</zorder>
    <zorder>addTime</zorder>
+   <zorder>addTime_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -1,8 +1,10 @@
 from PyQt5.QtCore import QSize, QObject, pyqtSignal, QThread
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5 import QtCore, QtGui, uic
+from PyQt5.QtWidgets import *
 from widgets import global_vars as gv
 from widgets.Timer.objects import Timer
 import os.path
+from pynotifier import Notification
 
 qtcreator_file = "widgets/Timer/timer.ui"  # Enter file here.
 Ui_TimerWindow, QtBaseClass = uic.loadUiType(qtcreator_file)
@@ -36,7 +38,7 @@ class TimerThread(QThread):
             self.window.timerEdit.setText("00:00")
             QThread.sleep(1)
             print("countdown done!")
-            self.window.done.emit("done")
+            self.window.done.emit()
 
     """
     strToSec: converts a string of the form NN:NN to an integer representing number of seconds
@@ -57,11 +59,12 @@ managing different timers stored as a list of timer objects
 
 #TODO: more than one time for a timer (ex: 25/5 pomodoro, 20/0.2 eye strain, etc.)
 """
-class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
-    done = pyqtSignal(str)
+class Window(QMainWindow, Ui_TimerWindow):
+    done = pyqtSignal()
+    notify = pyqtSignal(str)
     def __init__(self):
         # load and set up ui file
-        QtWidgets.QMainWindow.__init__(self)
+        QMainWindow.__init__(self)
         Ui_TimerWindow.__init__(self)
         self.setupUi(self)
         self.statusLabel.hide()
@@ -72,6 +75,8 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
 
         # notification signal toggler
         self.done.connect(self.check_if_done)
+        self.notify.connect(self.notify_handler)
+
         # TODO: start/stop toggler instead of separate buttons
         self.timerEdit.returnPressed.connect(self.start_timer)  # enter key triggers start
         self.toggleButton.clicked.connect(self.start_stop_toggler)
@@ -91,7 +96,7 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         self.timer_t = None         # timer thread, which begins a countdown
         self.timer_t_started = False     # too lazy to figure out how PyQT can check for deleted C++ objects
 
-        self.btnGroup = QtWidgets.QButtonGroup()
+        self.btnGroup = QButtonGroup()
         self.btnGroup.setExclusive(True)
         default_file = 'widgets/Timer/data/timer1.json'
         if os.path.isfile(default_file):
@@ -105,7 +110,7 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         print(timer)
         self.timers.append(timer)
         print("timers: " + str(self.timers))
-        btn = QtWidgets.QPushButton(timer.name)
+        btn = EditButton(timer.name)
         btn.clicked.connect(self.init_timer)
         btn.setCheckable(True)
         self.timerLayout.addWidget(btn)
@@ -122,11 +127,11 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
             it also replaces current timer data in the old index at self.index.  
     """
     def init_timer(self):
-        print("--------")
         new_index = self.btnGroup.checkedId()
         if new_index != -1:
             if self.index == new_index: 
-                raise Exception("new timer index same as old timer index. An error has occured. ")
+                # do nothing
+                return
             new_timer = self.timers[new_index]
             if self.index != -1:
                 # replace self.index with current timer time (and name)
@@ -186,7 +191,7 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
             if not in_timer:
                 self.timer().times.append(time)
                 print("times: " + str(self.timers))
-            line = QtWidgets.QLineEdit(time)
+            line = QLineEdit(time)
             line.setMaximumWidth(100)
             line.setMinimumHeight(30)
             line.setAlignment(QtCore.Qt.AlignCenter)
@@ -228,7 +233,7 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
         del gv.open_widgets[self.name]
         print(gv.open_widgets)
         
-    def check_if_done(self, text):
+    def check_if_done(self):
         if self.timer().index != len(self.timer().times) - 1:
             print("not done yet!")
             self.timer().index += 1
@@ -239,9 +244,28 @@ class Window(QtWidgets.QMainWindow, Ui_TimerWindow):
             print("finally done!")
             # timer is done. move to first time and notify
             self.switch_time(-1)
-            self.notify(text)
+            self.notify.emit("done!")
 
 
-    def notify(self, text):
+    def notify_handler(self, text):
         print(f"sending {text} to client...")
         self.statusLabel.show()
+        Notification(
+            title=f'{self.timer().name}',
+            description=f'{text}',
+            #icon_path='path/to/image/file/icon.png', # On Windows .ico is required, on Linux - .png
+            duration=5,                              # Duration in seconds
+            urgency=Notification.URGENCY_CRITICAL
+        ).send()
+    
+
+"""
+a button with an edit property when you double click it.
+"""
+class EditButton(QPushButton):
+    def mouseDoubleClickEvent(self, event):
+        text, ok = QInputDialog.getText(self, f"{self.text()} settings", 'timer name:', QLineEdit.Normal, self.text())
+        if ok:
+            i = self.window().timerLayout.indexOf(self)
+            self.setText(text)
+            self.window().timers[i].name = text
