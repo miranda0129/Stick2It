@@ -12,6 +12,8 @@ class MainMenuWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print(f"loading app: {app}")
         if app: app.show()
         gv.open_widgets[name] = app
+        # for testing
+        gv.window = app
         # print("Error in Widget. Check error message. ")
         # print(e)
 

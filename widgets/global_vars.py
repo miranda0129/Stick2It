@@ -14,3 +14,6 @@ widget_dict = {
 open_widgets: a dictionary of open widgets, using the above formulation, but with objects instead of classes
 """
 open_widgets = {}
+
+# window: for testing
+window = None
