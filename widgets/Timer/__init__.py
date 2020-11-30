@@ -9,6 +9,7 @@ from pynotifier import Notification
 qtcreator_file = "widgets/Timer/timer.ui"  # Enter file here.
 Ui_TimerWindow, QtBaseClass = uic.loadUiType(qtcreator_file)
 
+from datetime import datetime
 import time
 
 """
@@ -20,35 +21,34 @@ class TimerThread(QThread):
     def __init__(self, window=None):
         QThread.__init__(self)
         self.stop_signal.connect(self.stop)
-        if window:
+        if window is not None:
             self.window = window 
     
     def run(self):
         print("starting countdown...")
-        t = self.strToSec(self.window.timerEdit.text())
+        s = Timer.strToSec(self.window.timerEdit.text())
+        t = s
+        t2 = t
 
         self.continue_run = True
+        start_time = datetime.now()
         while t != 0 and self.continue_run:
-            mins, secs = divmod(t, 60)
-            timeformat = '{:02d}:{:02d}'.format(mins, secs)
-            self.window.timerEdit.setText(timeformat)
-            QThread.sleep(1)
-            t -= 1
+            if t != t2: 
+                print("timer still running...")
+                t = t2
+                mins, secs = divmod(t, 60)
+                timeformat = '{:02d}:{:02d}'.format(mins, secs)
+                self.window.timerEdit.setText(timeformat)
+                QThread.usleep(20)
+            t2 = s - (datetime.now() - start_time).seconds
         if t == 0:
             self.window.timerEdit.setText("00:00")
             QThread.sleep(1)
             print("countdown done!")
             self.window.done.emit()
+        else:
+            print("stopped timer")
 
-    """
-    strToSec: converts a string of the form NN:NN to an integer representing number of seconds
-    """
-    def strToSec(self, s):
-        mins = s[:2]
-        secs = s[3:]
-        min_sec = int(mins) * 60 + int(secs)
-        return min_sec if min_sec <= 3600 else 3600
-    
     def stop(self):
         print("stopping timer...")
         self.continue_run = False
@@ -81,7 +81,9 @@ class Window(QMainWindow, Ui_TimerWindow):
         self.timerEdit.returnPressed.connect(self.start_timer)  # enter key triggers start
         self.toggleButton.clicked.connect(self.start_stop_toggler)
         self.addTimer.clicked.connect(self.add_timer)
+        self.delTimer.clicked.connect(self.del_timer)
         self.addTime.clicked.connect(lambda: self.add_time("05:00", False))
+        self.delTime.clicked.connect(self.del_time)
     
     # quick way to get timer
     def timer(self):
@@ -95,6 +97,7 @@ class Window(QMainWindow, Ui_TimerWindow):
         self.index = -1             # which Timer of the array is loaded into the widget
         self.timer_t = None         # timer thread, which begins a countdown
         self.timer_t_started = False     # too lazy to figure out how PyQT can check for deleted C++ objects
+        self.offset = 0             # to fix deletion clashing
 
         self.btnGroup = QButtonGroup()
         self.btnGroup.setExclusive(True)
@@ -106,7 +109,7 @@ class Window(QMainWindow, Ui_TimerWindow):
             self.add_timer(is_checked=True)
     
     def add_timer(self, is_checked=False):
-        timer = Timer(name=f"timer {len(self.timers)}")
+        timer = Timer(name=f"timer {len(self.timers) + self.offset}")
         print(timer)
         self.timers.append(timer)
         print("timers: " + str(self.timers))
@@ -114,10 +117,31 @@ class Window(QMainWindow, Ui_TimerWindow):
         btn.clicked.connect(self.init_timer)
         btn.setCheckable(True)
         self.timerLayout.addWidget(btn)
-        self.btnGroup.addButton(btn, len(self.timers) - 1)
+        self.btnGroup.addButton(btn, len(self.timers) - 1 + self.offset)
         if is_checked:
             btn.setChecked(True)
             self.init_timer()
+    
+    # deletes the selected timer (at the selected index)
+    def del_timer(self):
+        if len(self.timers) > 1:
+            i = 0
+            if self.index == 0:
+                i = 1
+            if self.index != len(self.timers) - 1:
+                self.offset += 1
+            j = self.index
+            self.timerLayout.itemAt(i).widget().setChecked(True)
+            self.init_timer()
+            print(f"deleting timer at index {j}")
+            item = self.timerLayout.itemAt(j)
+            self.timerLayout.removeItem(item)
+            self.btnGroup.removeButton(item.widget())
+            item.widget().deleteLater()
+            self.timers.pop(j)
+
+
+
         
     """
         init_timer: after a button toggle is toggled on, run this function.
@@ -127,19 +151,25 @@ class Window(QMainWindow, Ui_TimerWindow):
             it also replaces current timer data in the old index at self.index.  
     """
     def init_timer(self):
-        new_index = self.btnGroup.checkedId()
+        # dont initialize the timer if there is a timer running
+        if self.timer_t_started:
+            self.timerLayout.itemAt(self.index).widget().setChecked(True)
+            return
+        new_index = self.timerLayout.indexOf(self.btnGroup.checkedButton())
+        print(f"new index: {new_index}")
         if new_index != -1:
             if self.index == new_index: 
                 # do nothing
                 return
             new_timer = self.timers[new_index]
+            print("timers: " + str(self.timers))
             if self.index != -1:
                 # replace self.index with current timer time (and name)
                 old_timer = self.timer()
                 #print(f"old timer: {old_timer}")
                 #print(f"new timer: {new_timer}")
-                print("times: " + str(self.timers))
                 #old_timer.times = [self.timerEdit.text()]
+                self.lock_edited_times()
                 for i in range(self.timesLayout.count()):
                     self.timesLayout.itemAt(i).widget().deleteLater()
 
@@ -152,6 +182,7 @@ class Window(QMainWindow, Ui_TimerWindow):
     # used in connections
     def toggle_timer_t(self):
         self.timer_t_started = not self.timer_t_started
+        print(self.timer_t_started)
 
     """
         boolean to toggle starting and stopping
@@ -173,7 +204,6 @@ class Window(QMainWindow, Ui_TimerWindow):
             self.timer_t = TimerThread(window=self)
             self.timer_t.finished.connect(self.timer_t.quit)  # connect the workers finished signal to stop thread
             self.timer_t.finished.connect(self.timer_t.deleteLater)  # connect the workers finished signal to stop thread
-            self.timer_t.finished.connect(self.toggle_timer_t)
             self.timer_t.start()
             self.toggle_timer_t()
     
@@ -198,9 +228,12 @@ class Window(QMainWindow, Ui_TimerWindow):
             line.setInputMask("00:00")
             # line.setStyleSheet("border: 0;")
             self.timesLayout.addWidget(line)
-            print(self.timesLayout.itemAt(0))
             print(f"time: {time}")
     
+    # deletes the selected time (at the selected index)
+    def del_time(self):
+        pass
+
     # switches the time on screen to the specified index
     def switch_time(self, index):
         if index != -1:
@@ -228,11 +261,17 @@ class Window(QMainWindow, Ui_TimerWindow):
  
     # close event will update global var tracking open widgets
     def closeEvent(self, event):
+        if self.timer_t:
+            try:
+                self.timer_t.stop_signal.emit()
+            except:
+                pass
         print("closing window...")
         print(gv.open_widgets)
         del gv.open_widgets[self.name]
         print(gv.open_widgets)
-        
+
+    
     def check_if_done(self):
         if self.timer().index != len(self.timer().times) - 1:
             print("not done yet!")
@@ -240,6 +279,8 @@ class Window(QMainWindow, Ui_TimerWindow):
             self.switch_time(self.timer().index)
             self.toggle_timer_t()
             self.start_timer()
+            if Timer.strToSec(self.timer().time()) > 10:
+                self.notify.emit(f"counting down timer {self.timer().time()}")
         else:
             print("finally done!")
             # timer is done. move to first time and notify
@@ -263,9 +304,18 @@ class Window(QMainWindow, Ui_TimerWindow):
 a button with an edit property when you double click it.
 """
 class EditButton(QPushButton):
-    def mouseDoubleClickEvent(self, event):
+    def settings_dialog(self):
         text, ok = QInputDialog.getText(self, f"{self.text()} settings", 'timer name:', QLineEdit.Normal, self.text())
         if ok:
             i = self.window().timerLayout.indexOf(self)
             self.setText(text)
             self.window().timers[i].name = text
+
+    def mouseDoubleClickEvent(self, event):
+        self.settings_dialog()
+    
+    def eventFilter(self, QObject, event):
+        if event.type() == QEvent.MouseButtonPress:
+            if event.button() == Qt.RightButton:
+                print("Right button clicked")
+        return False
