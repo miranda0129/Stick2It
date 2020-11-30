@@ -20,6 +20,7 @@ def run():
         QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 
     app = QtWidgets.QApplication([])
+    app.setQuitOnLastWindowClosed(False)
     window = MainMenuWindow()
     window.show()
-    app.exec_()
+    return app, window

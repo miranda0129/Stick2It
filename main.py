@@ -2,4 +2,5 @@
 if __name__ == "__main__":
     import sys
     from widgets import app 
-    sys.exit(app.run())
+    new_app, window = app.run()
+    sys.exit(new_app.exec_())

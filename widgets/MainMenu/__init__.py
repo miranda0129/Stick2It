@@ -12,6 +12,8 @@ class MainMenuWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print(f"loading app: {app}")
         if app: app.show()
         gv.open_widgets[name] = app
+        # for testing
+        gv.window = app
         # print("Error in Widget. Check error message. ")
         # print(e)
 
@@ -26,3 +28,9 @@ class MainMenuWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             button.clicked.connect(self.load_widget) # Simulates pushing every widget button
 
             # for any button clicked, try to load the widget
+    
+    def closeEvent(self, event):
+        if not gv.open_widgets:
+            print("exiting...")
+            import sys
+            sys.exit()
