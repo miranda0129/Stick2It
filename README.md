@@ -4,6 +4,8 @@
 
 A final project for our third year software engineering class.  We were tasked with creating a useful product within our groups.  Stick2it was conceived as a simple, yet pratical project.
 
+<img src="logo.png">
+
 ### Tech Stack and Methodology
 Working in a group, Python seemed like an ideal languageas as it is known for being easy to pick to and extremly versitile.  Using PyQt to build our GUI was new for all members and a hurdle, but in the end was the best choice for quickly creating a useable user interface.
 
