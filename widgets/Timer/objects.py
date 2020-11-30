@@ -17,6 +17,9 @@ class Timer:
         self.name = name        # name assigned to the timer
         self.index = 0          # where the timer is in the times array
     
+    def time(self):
+        return self.times[self.index]
+    
     """
         for JSON storage, store the time and the name as strings
     """
@@ -31,3 +34,13 @@ class Timer:
 
     def __repr__(self):
         return str(self.to_dict())
+
+    """
+    strToSec: converts a string of the form NN:NN to an integer representing number of seconds
+    """
+    @staticmethod
+    def strToSec(s):
+        mins = s[:2]
+        secs = s[3:]
+        min_sec = int(mins) * 60 + int(secs)
+        return min_sec if min_sec <= 3600 else 3600
