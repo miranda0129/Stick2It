@@ -16,5 +16,6 @@ Stick2It is a modular desktop application that bundles a handful of useful produ
 ### Takeaway
 Working in an iterative style along side group members was a new technique for all of us to learn.  In hindsight we did a pretty good job at managing and distributing work, keeping agile, and working collabortivly over GitHub.  The size and scope of the project was small and simple, but that was the plan to allow ourselves room to learn and adapt to this new methodlogy of building software as a team.
 
-<img src="readMePhoto.png" width="50%">
+
+[link to our video presentation](https://www.youtube.com/watch?v=gGoKUSX6PKw)
 
