@@ -68,6 +68,10 @@ class Window(QMainWindow, Ui_TimerWindow):
         Ui_TimerWindow.__init__(self)
         self.setupUi(self)
         self.statusLabel.hide()
+        self.actionNew.triggered.connect(self.new_file)
+        self.actionOpen.triggered.connect(self.open_file)
+        self.actionSave.triggered.connect(self.save_file)
+        self.actionSave_As.triggered.connect(self.save_file_as)
 
         # name widget for window management
         self.name = "widget4"
@@ -92,7 +96,7 @@ class Window(QMainWindow, Ui_TimerWindow):
     """
         load_timers: if a time file exists, then load it up at startup. If not, then be a blank startup. 
     """
-    def load_timers(self):
+    def load_timers(self, file='widgets/Timer/data/timer1.json'):
         self.timers = []            # an array of Timer objects, with an associated button
         self.index = -1             # which Timer of the array is loaded into the widget
         self.timer_t = None         # timer thread, which begins a countdown
@@ -101,8 +105,7 @@ class Window(QMainWindow, Ui_TimerWindow):
 
         self.btnGroup = QButtonGroup()
         self.btnGroup.setExclusive(True)
-        default_file = 'widgets/Timer/data/timer1.json'
-        if os.path.isfile(default_file):
+        if file and os.path.isfile(file):
             print("file exists. Loading file. ")
         else:
             print("file does not exist. Creating default timer file. ")
@@ -232,7 +235,11 @@ class Window(QMainWindow, Ui_TimerWindow):
     
     # deletes the selected time (at the selected index)
     def del_time(self):
-        pass
+        if len(self.timer().times) > 1:
+            self.timer().times.pop()
+            item = self.timesLayout.itemAt(self.timesLayout.count()-1)
+            self.timesLayout.removeItem(item)
+            item.widget().deleteLater()
 
     # switches the time on screen to the specified index
     def switch_time(self, index):
@@ -298,6 +305,22 @@ class Window(QMainWindow, Ui_TimerWindow):
             duration=5,                              # Duration in seconds
             urgency=Notification.URGENCY_CRITICAL
         ).send()
+    
+
+    #FILE SAVING
+    def new_file(self):
+        print("new file")
+
+
+    def open_file(self):
+        print("open file")
+    
+    def save_file(self):
+        print("save file")
+    
+    def save_file_as(self):
+        print("save file as")
+
     
 
 """
