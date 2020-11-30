@@ -1133,9 +1133,9 @@
             <colorrole role="Window">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>170</red>
-               <green>85</green>
-               <blue>255</blue>
+               <red>178</red>
+               <green>213</green>
+               <blue>174</blue>
               </color>
              </brush>
             </colorrole>
@@ -1261,9 +1261,9 @@
             <colorrole role="Window">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>170</red>
-               <green>85</green>
-               <blue>255</blue>
+               <red>178</red>
+               <green>213</green>
+               <blue>174</blue>
               </color>
              </brush>
             </colorrole>
@@ -1380,18 +1380,18 @@
             <colorrole role="Base">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>170</red>
-               <green>85</green>
-               <blue>255</blue>
+               <red>178</red>
+               <green>213</green>
+               <blue>174</blue>
               </color>
              </brush>
             </colorrole>
             <colorrole role="Window">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>170</red>
-               <green>85</green>
-               <blue>255</blue>
+               <red>178</red>
+               <green>213</green>
+               <blue>174</blue>
               </color>
              </brush>
             </colorrole>
@@ -1534,6 +1534,10 @@
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #8db596;
+color: rgb(0, 0, 0);</string>
          </property>
          <property name="text">
           <string>How Far is selected 
