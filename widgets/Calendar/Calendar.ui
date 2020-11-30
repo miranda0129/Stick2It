@@ -1403,15 +1403,9 @@
             <colorrole role="Window">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-<<<<<<< HEAD
-               <red>178</red>
-               <green>213</green>
-               <blue>174</blue>
-=======
                <red>141</red>
                <green>181</green>
                <blue>150</blue>
->>>>>>> e277074cc2d27ba0e802a7cfc3cd67e826183645
               </color>
              </brush>
             </colorrole>
@@ -1555,15 +1549,9 @@
             <colorrole role="Window">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-<<<<<<< HEAD
-               <red>178</red>
-               <green>213</green>
-               <blue>174</blue>
-=======
                <red>141</red>
                <green>181</green>
                <blue>150</blue>
->>>>>>> e277074cc2d27ba0e802a7cfc3cd67e826183645
               </color>
              </brush>
             </colorrole>
@@ -1698,30 +1686,18 @@
             <colorrole role="Base">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-<<<<<<< HEAD
-               <red>178</red>
-               <green>213</green>
-               <blue>174</blue>
-=======
                <red>141</red>
                <green>181</green>
                <blue>150</blue>
->>>>>>> e277074cc2d27ba0e802a7cfc3cd67e826183645
               </color>
              </brush>
             </colorrole>
             <colorrole role="Window">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-<<<<<<< HEAD
-               <red>178</red>
-               <green>213</green>
-               <blue>174</blue>
-=======
                <red>141</red>
                <green>181</green>
                <blue>150</blue>
->>>>>>> e277074cc2d27ba0e802a7cfc3cd67e826183645
               </color>
              </brush>
             </colorrole>
@@ -2069,12 +2045,7 @@
           <bool>false</bool>
          </property>
          <property name="styleSheet">
-<<<<<<< HEAD
-          <string notr="true">background-color: #8db596;
-color: rgb(0, 0, 0);</string>
-=======
           <string notr="true">background-color: #8db596;</string>
->>>>>>> e277074cc2d27ba0e802a7cfc3cd67e826183645
          </property>
          <property name="text">
           <string>How Far is selected 
