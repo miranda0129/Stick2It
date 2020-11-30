@@ -112,18 +112,19 @@ class Window(QMainWindow, Ui_TimerWindow):
             self.add_timer(is_checked=True)
     
     def add_timer(self, is_checked=False):
-        timer = Timer(name=f"timer {len(self.timers) + self.offset}")
-        print(timer)
-        self.timers.append(timer)
-        print("timers: " + str(self.timers))
-        btn = EditButton(timer.name)
-        btn.clicked.connect(self.init_timer)
-        btn.setCheckable(True)
-        self.timerLayout.addWidget(btn)
-        self.btnGroup.addButton(btn, len(self.timers) - 1 + self.offset)
-        if is_checked:
-            btn.setChecked(True)
-            self.init_timer()
+        if len(self.timers) <= 10:
+            timer = Timer(name=f"timer {len(self.timers) + self.offset}")
+            print(timer)
+            self.timers.append(timer)
+            print("timers: " + str(self.timers))
+            btn = EditButton(timer.name)
+            btn.clicked.connect(self.init_timer)
+            btn.setCheckable(True)
+            self.timerLayout.addWidget(btn)
+            self.btnGroup.addButton(btn, len(self.timers) - 1 + self.offset)
+            if is_checked:
+                btn.setChecked(True)
+                self.init_timer()
     
     # deletes the selected timer (at the selected index)
     def del_timer(self):
@@ -220,18 +221,19 @@ class Window(QMainWindow, Ui_TimerWindow):
               if not in_timer, then also add it to the current timer array in memory. 
     """
     def add_time(self, time, in_timer):
-        if self.timers:
-            if not in_timer:
-                self.timer().times.append(time)
-                print("times: " + str(self.timers))
-            line = QLineEdit(time)
-            line.setMaximumWidth(100)
-            line.setMinimumHeight(30)
-            line.setAlignment(QtCore.Qt.AlignCenter)
-            line.setInputMask("00:00")
-            # line.setStyleSheet("border: 0;")
-            self.timesLayout.addWidget(line)
-            print(f"time: {time}")
+        if len(self.timer().times) <= 10:
+            if self.timers:
+                if not in_timer:
+                    self.timer().times.append(time)
+                    print("times: " + str(self.timers))
+                line = QLineEdit(time)
+                line.setMaximumWidth(100)
+                line.setMinimumHeight(30)
+                line.setAlignment(QtCore.Qt.AlignCenter)
+                line.setInputMask("00:00")
+                # line.setStyleSheet("border: 0;")
+                self.timesLayout.addWidget(line)
+                print(f"time: {time}")
     
     # deletes the selected time (at the selected index)
     def del_time(self):
