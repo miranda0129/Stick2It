@@ -10,7 +10,7 @@ Stick2It is the final project for our third year software engineering class.  We
 Working within a group, Python seemed like an ideal languageas as it is known for being easy to pick to as well as being extremly versitile.  Using PyQt to build our GUI was new for all members and a hurdle, but in the end was the best choice for quickly creating a useable user interface.
 
 ### Walkthrough
-Stick2It is a modular desktop application that bundles a handful of useful productivity widgets into one conveient package.  Included is: a (non-volitile) To Do List, Calender (which counts how many days are left in between a specified date and the current date), a budgeter, and a timer.
+Stick2It is a modular desktop application that bundles a handful of useful productivity widgets into one conveient package.  Included is: a To Do List, Calender (which counts how many days are left in between a specified date and the current date), a budgeter, and a timer.
 
 
 ### Takeaway
